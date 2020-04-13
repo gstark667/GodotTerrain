@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="PlayingAround"
+config/name="GodotTerrain"
 run/main_scene="res://water.tscn"
 config/icon="res://icon.png"
 
