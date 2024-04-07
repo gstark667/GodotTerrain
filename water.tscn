@@ -1,65 +1,61 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://dm0x57cmja8cj"]
 
-[ext_resource path="res://water.material" type="Material" id=1]
-[ext_resource path="res://beach.tscn" type="PackedScene" id=2]
-[ext_resource path="res://water_glse2.material" type="Material" id=3]
+[ext_resource type="Material" uid="uid://bwa8po1n47x63" path="res://water.material" id="1"]
+[ext_resource type="PackedScene" uid="uid://5mx82rqpykip" path="res://beach.tscn" id="2"]
 
-[sub_resource type="PlaneMesh" id=1]
-material = ExtResource( 1 )
-size = Vector2( 10, 10 )
+[sub_resource type="PlaneMesh" id="1"]
+material = ExtResource("1")
+size = Vector2(10, 10)
 subdivide_width = 20
 subdivide_depth = 20
 
-[sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.498039, 0.498039, 0.498039, 1 )
-metallic = 0.43
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tkjph"]
 
-[sub_resource type="CubeMesh" id=3]
-material = SubResource( 2 )
-size = Vector3( 0.5, 0.5, 0.5 )
+[sub_resource type="Sky" id="Sky_llqgv"]
+sky_material = SubResource("ProceduralSkyMaterial_tkjph")
 
-[sub_resource type="ProceduralSky" id=4]
-sun_latitude = 121.17
-sun_longitude = -26.81
-
-[sub_resource type="Environment" id=5]
+[sub_resource type="Environment" id="5"]
 background_mode = 2
-background_sky = SubResource( 4 )
-tonemap_mode = 2
-ss_reflections_enabled = true
+sky = SubResource("Sky_llqgv")
+ambient_light_source = 3
+ssr_enabled = true
 ssao_enabled = true
 ssao_radius = 0.5
 glow_enabled = true
 glow_intensity = 1.48
 glow_strength = 0.82
 glow_bloom = 0.19
+adjustment_brightness = 0.01
 
-[node name="Spatial" type="Spatial"]
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_iy83y"]
 
-[node name="Water" type="MeshInstance" parent="."]
-mesh = SubResource( 1 )
-material/0 = null
+[sub_resource type="BoxMesh" id="BoxMesh_mo8ql"]
 
-[node name="Water_glse2" type="MeshInstance" parent="."]
+[node name="Node3D" type="Node3D"]
+
+[node name="Water" type="MeshInstance3D" parent="."]
 visible = false
-mesh = SubResource( 1 )
-material/0 = ExtResource( 3 )
+mesh = SubResource("1")
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.848008, -0.226932, 0.478941, -0.0934123, 0.825543, 0.556555, -0.521686, -0.516702, 0.678869, 2.29505, 1.09871, 4.17889 )
+[node name="Water_glse2" type="MeshInstance3D" parent="."]
+mesh = SubResource("1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.848008, -0.226932, 0.478941, -0.0934123, 0.825543, 0.556555, -0.521686, -0.516702, 0.678869, 2.29505, 1.09871, 4.17889)
 shadow_enabled = true
-shadow_bias = -0.15
-
-[node name="Cube" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57618, 0.0229821, -1.82525 )
-mesh = SubResource( 3 )
-material/0 = null
+shadow_bias = 0.303
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 5 )
+environment = SubResource("5")
+camera_attributes = SubResource("CameraAttributesPractical_iy83y")
 
-[node name="beach" parent="." instance=ExtResource( 2 )]
-transform = Transform( 6.55671e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, 6.55671e-08, 0, 0, 0 )
+[node name="beach" parent="." instance=ExtResource("2")]
+transform = Transform3D(6.55671e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, 6.55671e-08, 0, 0, 0)
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( -0.839449, -0.136213, 0.52609, 0, 0.968078, 0.25065, -0.543438, 0.210408, -0.812652, 3.17939, 0.806401, -3.58852 )
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.839449, -0.136213, 0.52609, 0, 0.968078, 0.25065, -0.543438, 0.210408, -0.812652, 3.17939, 0.806401, -3.58852)
+near = 0.001
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.93465, 0, -2.05359)
+mesh = SubResource("BoxMesh_mo8ql")
